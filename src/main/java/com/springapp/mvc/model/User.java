@@ -20,6 +20,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
+    private String role = "ROLE_USER";
+
     public User(){
         //for hibernate
     }
@@ -65,6 +67,14 @@ public class User {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override

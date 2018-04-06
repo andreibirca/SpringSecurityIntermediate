@@ -11,7 +11,7 @@
 <body>
 <div align="center">
     <div style="width: 300px; height: 500px;">
-        <form:form method="POST" action="/login">
+        <form:form method="POST" action="/registration">
             <div class="imgcontainer">
                 <img src="../resources/incognito.jpg" alt="Avatar" class="avatar">
             </div>
@@ -25,9 +25,10 @@
                 <input type="password" name="password" required="required"/>
 
                 <label>Gender</label>
-
-                <button type="submit">Login</button>
-                <button type="submit"><a href="/registration">Register</a></button>
+                <p>
+                <input type="radio" name="gender" value="MALE" checked>Male
+                <input type="radio" name="gender" value="FEMALE">Female<br></p>
+                <button type="submit">Register</button>
 
             </div>
         </form:form>

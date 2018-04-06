@@ -37,11 +37,20 @@ public class UserDao {
     }
 
     public List<User> getAllByGender(Gender gender) {
-        sessionFactory.getCurrentSession();
         Query query = sessionFactory.getCurrentSession()
                 .createQuery("from User where gender=:gender");
         query.setParameter("gender", gender);
 
         return query.getResultList();
+    }
+
+    public boolean saveUser(User user){
+        try {
+            sessionFactory.getCurrentSession()
+                    .persist(user);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 }

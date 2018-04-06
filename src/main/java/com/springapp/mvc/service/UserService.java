@@ -31,4 +31,8 @@ public class UserService {
     public Optional<User> getUserByName(String username) {
         return userDao.getUserByName(username);
     }
+
+    public boolean register(User user){
+        return userDao.saveUser(user);
+    }
 }
