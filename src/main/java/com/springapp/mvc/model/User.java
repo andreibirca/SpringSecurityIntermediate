@@ -11,6 +11,7 @@ public class User {
     private int id;
 
     @Column(name = "username")
+
     private String username;
 
     @Column(name = "password")

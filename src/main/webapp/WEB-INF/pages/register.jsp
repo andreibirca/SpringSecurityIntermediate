@@ -16,6 +16,7 @@
                 <img src="../resources/incognito.jpg" alt="Avatar" class="avatar">
             </div>
             <h3 align="center" style="color:maroon;">${message}</h3>
+            <h2 align="center" style="color:blue;">${msg}</h2>
 
             <div class="container" align="left">
                 <label>Username</label>

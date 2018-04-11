@@ -19,15 +19,17 @@
 
             <div class="container" align="left">
                 <label>Username</label>
-                <input type="text" name="username" required="required"/>
+                <input type="text" name="usernames" required="required"/>
 
                 <label>Password</label>
-                <input type="password" name="password" required="required"/>
+                <input type="password" name="passwords" required="required"/>
 
                 <label>Gender</label>
+                <input type="radio" name="gender" value="MALE" checked>Male
+                <input type="radio" name="gender" value="FEMALE">Female<br></p>
 
                 <button type="submit">Login</button>
-                <button type="submit"><a href="/registration">Register</a></button>
+                <button type="submit"><a style="color: ghostwhite" href= "/registration">Register</a></button>
 
             </div>
         </form:form>

@@ -44,13 +44,43 @@ public class UserDao {
         return query.getResultList();
     }
 
-    public boolean saveUser(User user){
+    public boolean saveUser(User user) {
+
+        if (checkUserIfExistInDb(user.getUsername())) {
+            return false;
+        }
+
         try {
             sessionFactory.getCurrentSession()
                     .persist(user);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
+
+    public boolean checkUserIfExistInDb(String username) {
+
+        long count = (Long) sessionFactory
+                .getCurrentSession()
+                .createQuery("select count(u.id)from User u where username=:username")
+                .setParameter("username", username)
+                .uniqueResult();
+        if (count == 0) {
+            return false;
+        }
+        return true;
+    }
 }
+
+//    public boolean checkUserIfExistInDb(User user) {
+//        List<User> list = getListOfUsers();
+//        for (User u : list
+//                ) {
+//            if (u.getUsername().equals(user.getUsername())) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//}

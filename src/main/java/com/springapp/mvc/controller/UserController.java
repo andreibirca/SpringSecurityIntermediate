@@ -31,17 +31,26 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registerUser(@ModelAttribute User user){
+    public String registerUser(@ModelAttribute User user, Model model){
         boolean saved =   userService.register(user);
         if(saved){
             return "redirect:/allusers";
         }
-        else return "register";
+        else{
+            model.addAttribute("msg", "An user with such name already exists !");
+            return "register";
+        }
 
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String printWelcome(Model model) {
+        model.addAttribute("message", "Hi there! Log in, please");
+        return "index";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String printWelcomeC(Model model) {
         model.addAttribute("message", "Hi there! Log in, please");
         return "index";
     }
