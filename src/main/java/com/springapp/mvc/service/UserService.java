@@ -35,4 +35,8 @@ public class UserService {
     public boolean register(User user){
         return userDao.saveUser(user);
     }
+
+    public boolean existsInDb(User user){
+        return userDao.checkUserIfExistInDb(user);
+    }
 }

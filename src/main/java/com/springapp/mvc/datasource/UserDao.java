@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.ArrayList;
@@ -46,9 +47,9 @@ public class UserDao {
 
     public boolean saveUser(User user) {
 
-        if (checkUserIfExistInDb(user.getUsername())) {
-            return false;
-        }
+//        if (checkUserIfExistInDb(user.getUsername())) {
+//            return false;
+//        }
 
         try {
             sessionFactory.getCurrentSession()
@@ -59,9 +60,9 @@ public class UserDao {
         }
     }
 
-    public boolean checkUserIfExistInDb(String username) {
-
-        long count = (Long) sessionFactory
+    public boolean checkUserIfExistInDb(User user) {
+        String username = user.getUsername();
+        Long count = (Long) sessionFactory
                 .getCurrentSession()
                 .createQuery("select count(u.id)from User u where username=:username")
                 .setParameter("username", username)

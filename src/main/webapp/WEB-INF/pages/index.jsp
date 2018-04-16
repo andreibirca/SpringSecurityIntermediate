@@ -29,7 +29,7 @@
                 <input type="radio" name="gender" value="FEMALE">Female<br></p>
 
                 <button type="submit">Login</button>
-                <button type="submit"><a style="color: ghostwhite" href= "/registration">Register</a></button>
+                <button type="submit"><a style="color: ghostwhite" href= "/regForm">TO Register</a></button>
 
             </div>
         </form:form>

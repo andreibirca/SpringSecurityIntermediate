@@ -3,7 +3,7 @@ form {
 }
 
 /* Full-width inputs */
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=date] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -21,6 +21,18 @@ button {
     border: none;
     cursor: pointer;
     width: 100%;
+}
+
+.error {
+       color: #ff212a;
+}
+
+.errorblock {
+    color: #000;
+    background-color: #ffEEEE;
+    border: 3px solid #ff0000;
+    padding: 8px;
+    margin: 16px;
 }
 
 /* Extra style for the cancel button (red) */

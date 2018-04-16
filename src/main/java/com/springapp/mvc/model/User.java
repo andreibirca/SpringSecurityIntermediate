@@ -1,8 +1,24 @@
 package com.springapp.mvc.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "users")
 public class User {
 
@@ -10,12 +26,37 @@ public class User {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-    @Column(name = "username")
+    @Column(name = "name")
+    private String  name;
 
+    @Column(name = "surname")
+    private String surname;
+
+    @Length(min = 3, message = "The field must be at least 3 characters !")
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
+    @ManyToMany
+    private Set<Role> roles;
+
+    @NotNull
+    @Size(min = 5, message = "length must be more or \nequal to 5 characters")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&.+=])(?=\\S+$).{8,}$",message = "Password must have 1 Big/small letter 1 special sign 1 number")
     private String password;
+
+    private String passwConfirm;
+    @Nullable
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
+
+    @NotNull
+    @Size(min = 6, max = 30, message = "Lungimea trebuie sa corespunda cond. >=6 and <=25")
+    @Pattern.List({
+            @Pattern(regexp = "[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}", message
+                    ="Nu corespunde sablonului: \nemail_name@provider_name.extention"),
+
+    })
+    private String email;
 
     @Column(name = "gender")
     @Enumerated(EnumType.STRING)
@@ -23,87 +64,4 @@ public class User {
 
     private String role = "ROLE_USER";
 
-    public User(){
-        //for hibernate
-    }
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public User(String username, String password, Gender gender) {
-        this.username = username;
-        this.password = password;
-        this.gender = gender;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String name) {
-        this.username = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        if (username != null ? !username.equals(user.username) : user.username != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        return gender == user.gender;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = username != null ? username.hashCode() : 0;
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (gender != null ? gender.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", gender=" + gender +
-                '}';
-    }
 }
