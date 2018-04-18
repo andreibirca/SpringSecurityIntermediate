@@ -32,7 +32,7 @@ public class User {
     @Column(name = "surname")
     private String surname;
 
-    @Length(min = 3, message = "The field must be at least 3 characters !")
+    @Size(min = 2, message = "The field must be at least 5 characters !")
     @Column(name = "username")
     private String username;
 
@@ -40,17 +40,19 @@ public class User {
     private Set<Role> roles;
 
     @NotNull
-    @Size(min = 5, message = "length must be more or \nequal to 5 characters")
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&.+=])(?=\\S+$).{8,}$",message = "Password must have 1 Big/small letter 1 special sign 1 number")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&.+=])(?=\\S+$).{8,}$"
+            ,message = "Password must contain 1 uppercase char & 1 & special simbol & 1 digit" +
+            "& length>=8")
     private String password;
 
-    private String passwConfirm;
+    private transient String passwConfirm;
+
     @Nullable
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @NotNull
-    @Size(min = 6, max = 30, message = "Lungimea trebuie sa corespunda cond. >=6 and <=25")
+    @Size(min = 6, max = 30, message = "Lungimea trebuie sa corespunda cond. 6<= length <=25")
     @Pattern.List({
             @Pattern(regexp = "[A-Za-z0-9._%-+]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}", message
                     ="Nu corespunde sablonului: \nemail_name@provider_name.extention"),
@@ -62,6 +64,5 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    private String role = "ROLE_USER";
 
 }

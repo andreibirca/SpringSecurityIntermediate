@@ -12,10 +12,11 @@
 <body>
 <div align="center">
     <div style="width: 300px; height: 500px;">
-        <form:form method="POST" action="/registration" modelAttribute="user">
+        <form:form method="POST" action="/updateSimpleUser" modelAttribute="user">
             <div class="imgcontainer">
-                <img src="../resources/incognito.jpg" alt="Avatar" class="avatar">
-                <h2 align="center" style="color:maroon;">${msg}</h2></br>
+                <%--<img src="../resources/incognito.jpg" alt="Avatar" class="avatar">--%>
+                <%--<h2 align="center" style="color:maroon;">${msg}</h2></br>--%>
+                <h2 align="center" style="color:maroon;">Personal Edit Page</h2></br>
             </div>
 
             <div class="container" align="left">
@@ -32,8 +33,7 @@
                 <form:input path="date" type="date"/>
 
                 <label>Username</label><br>
-                <span class="error">${msgExist}</span>
-                <span class="error">${userpresent}</span>
+                <p align="center" class="error">${msgExist}</p>
                 <form:errors path="username" cssClass="error"/>
                 <form:input path="username" required="required"/>
 
@@ -49,7 +49,6 @@
 
                 <label>Email</label><br>
                 <form:errors path="email" cssClass="error"/>
-                <span class="error">${emailpresent}</span>
                 <form:input path="email" required="required"/>
 
                 <label>Gender</label>
@@ -57,8 +56,7 @@
                    <form:radiobutton path="gender" value="MALE" checked="checked"/>Male
                    <form:radiobutton path="gender" value="FEMALE" />Female<br>
                 </p>
-                <button type="submit">Register</button>
-                <button type="submit"><a href="/login" style="color: ghostwhite">TO Login</a></button>
+                <button type="submit">Update</button>
 
             </div>
         </form:form>

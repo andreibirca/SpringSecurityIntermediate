@@ -32,11 +32,27 @@ public class UserService {
         return userDao.getUserByName(username);
     }
 
+    public Optional<User> getUserByEmail(String emailname) {
+        return userDao.getUserByEmail(emailname);
+    }
+
     public boolean register(User user){
         return userDao.saveUser(user);
     }
 
-    public boolean existsInDb(User user){
-        return userDao.checkUserIfExistInDb(user);
+    public boolean update(User user) {
+        return  userDao.updateUser(user);
+    }
+
+//    public boolean existsInDb(User user){
+//        return userDao.checkUserIfExistInDb(user);
+//    }
+
+    public List<User> getAllUsersWithRoleUser() { return userDao.getListOfUsersWithRoleUser();}
+
+
+
+    public void deleteUser(String username){
+        userDao.deleteUser(username);
     }
 }

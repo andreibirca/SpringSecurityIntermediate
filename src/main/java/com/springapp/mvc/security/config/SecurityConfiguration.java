@@ -46,11 +46,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
-                //.antMatchers("/secret").hasRole("ROLE_USER")
-                .antMatchers("/secret").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+                //.antMatchers("/secret").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/admin").access("hasRole('ROLE_ADMIN')")
                 .and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/allusers")
-                .failureUrl("/error")
+                .failureUrl("/failedAccess")
                 .usernameParameter("usernames").passwordParameter("passwords")
                 .and().csrf().disable();
     }
