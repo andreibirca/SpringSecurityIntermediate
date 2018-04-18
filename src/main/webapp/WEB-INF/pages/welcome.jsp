@@ -12,7 +12,7 @@
 <h1>Hi, Welcome to our super-puper secret page!</h1>
 <p>Next, you can see the full list of <a href="/showFemales">girls</a>
     or <a href="/showMales">boys</a> or <a href="/showAllUsers">ALTOGETHER </a><br>
-    or <a href="/admin"> To UsersByRoles(admin)</a><br> <a href="/updateSimpleUser?username=${activeUser}">Active Simple User</a>
+    or <a href="/admin/panel"> To UsersByRoles(admin)</a><br> <a href="/updateCurrentUser">Active Simple User</a>
 </p>
 <a href="/login">  To Login Page</a>
 </body>

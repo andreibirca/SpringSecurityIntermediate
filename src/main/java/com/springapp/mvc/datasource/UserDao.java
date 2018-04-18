@@ -97,9 +97,13 @@ public class UserDao {
 
     public boolean updateUser(User user) {
         try {
+
             user.setPassword(encoder.encode(user.getPassword()));
             //TODO CHECK IF user.roles is empty give him default roles
 
+            User userDB = getUserByName(user.getUsername()).get();
+            user.setId(userDB.getId());
+            user.setRoles(userDB.getRoles());
 //            if (user.getRoles() == null || user.getRoles().isEmpty() ){
 //                user.setRoles(roleDao.getDefaultRoles());
 //            }

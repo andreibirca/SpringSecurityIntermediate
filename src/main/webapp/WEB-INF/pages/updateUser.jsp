@@ -12,10 +12,8 @@
 <body>
 <div align="center">
     <div style="width: 300px; height: 500px;">
-        <form:form method="POST" action="/updateSimpleUser" modelAttribute="user">
+        <form:form method="POST" action="/updateCurrentUser" modelAttribute="user">
             <div class="imgcontainer">
-                <%--<img src="../resources/incognito.jpg" alt="Avatar" class="avatar">--%>
-                <%--<h2 align="center" style="color:maroon;">${msg}</h2></br>--%>
                 <h2 align="center" style="color:maroon;">Personal Edit Page</h2></br>
             </div>
 
@@ -33,7 +31,8 @@
                 <form:input path="date" type="date"/>
 
                 <label>Username</label><br>
-                <p align="center" class="error">${msgExist}</p>
+                <%--<p align="center" class="error">${msgExist}</p>--%>
+                <p align="center" class="error">${userchanged}</p>
                 <form:errors path="username" cssClass="error"/>
                 <form:input path="username" required="required"/>
 
@@ -48,6 +47,7 @@
                 <form:input path="passwConfirm" type="text" placeholder="Confirm the password"/>
 
                 <label>Email</label><br>
+                <span class="error">${emailpresent}</span>
                 <form:errors path="email" cssClass="error"/>
                 <form:input path="email" required="required"/>
 

@@ -34,8 +34,8 @@
             ${role.name}</br>
             </c:forEach>
             </td>
-            <td><a href="/deleteUser?username=${user.username}">Delete</a></td>
-            <td><a href="/updateUser?username=${user.username}">Update</a></td>
+            <td><a href="/admin/deleteUser?username=${user.username}">Delete</a></td>
+            <td><a href="/admin/updateUser?username=${user.username}">Update</a></td>
         </tr>
 
     </c:forEach>

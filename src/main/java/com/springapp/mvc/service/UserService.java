@@ -44,10 +44,6 @@ public class UserService {
         return  userDao.updateUser(user);
     }
 
-//    public boolean existsInDb(User user){
-//        return userDao.checkUserIfExistInDb(user);
-//    }
-
     public List<User> getAllUsersWithRoleUser() { return userDao.getListOfUsersWithRoleUser();}
 
 

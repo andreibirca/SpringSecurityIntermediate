@@ -13,7 +13,7 @@
 </head>
 <body>
 <h1>SECRET</h1>
-<sec:authorize url="/admin">
+<sec:authorize url="/admin/panel">
     This content will only be visible to users who are authorized to send requests to the "/admin" URL.
 </sec:authorize>
 </body>

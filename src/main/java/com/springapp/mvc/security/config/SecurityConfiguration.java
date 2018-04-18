@@ -45,14 +45,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-                //.antMatchers("/secret").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/admin").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/login","/registration","/").permitAll()
+                .antMatchers("/allusers","/updateCurrentUser","/showMales","/showFemales").authenticated()
+                .antMatchers("/admin/**","/secret").access("hasRole('ROLE_ADMIN')")
                 .and().formLogin().loginPage("/login")
                 .defaultSuccessUrl("/allusers")
-                .failureUrl("/failedAccess")
-                .usernameParameter("usernames").passwordParameter("passwords")
+                .failureUrl("/error")
+                .usernameParameter("username").passwordParameter("password")
                 .and().csrf().disable();
+        http.rememberMe()
+                .rememberMeCookieName("remember-me")
+                .rememberMeParameter("remember-me")
+
+                .alwaysRemember(true);
     }
 }
