@@ -68,7 +68,7 @@ public class UserController {
         return "updateUser";
     }
 
-    @PostMapping("updateCurrentUser")
+    @PostMapping("/updateCurrentUser")
     public String updateUser(Model model,@ModelAttribute User user, BindingResult bindingResult, Authentication authentication){
         boolean success = true;
 
@@ -146,15 +146,11 @@ public class UserController {
         return "error";
     }
 
-
-
     @RequestMapping(value = "/showAllUsers", method = RequestMethod.GET)
     public String returnAllInEditForm(Model model){
         model.addAttribute("users", userService.getAllUsers());
         return "showall";
     }
-
-
 
     @RequestMapping(value = "/showMales", method = RequestMethod.GET)
     public String showOnlyMales(Model model) {

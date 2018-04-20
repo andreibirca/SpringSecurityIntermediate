@@ -16,6 +16,7 @@ import java.util.Set;
 @Component
 public class RoleDao {
 
+
     @Autowired
     private SessionFactory sessionFactory;
 

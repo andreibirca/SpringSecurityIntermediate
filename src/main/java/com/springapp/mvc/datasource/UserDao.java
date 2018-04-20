@@ -1,6 +1,8 @@
 package com.springapp.mvc.datasource;
 
 import com.springapp.mvc.model.Gender;
+import com.springapp.mvc.model.Role;
+import com.springapp.mvc.model.RoleEnum;
 import com.springapp.mvc.model.User;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import javax.jws.soap.SOAPBinding;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -53,10 +56,65 @@ public class UserDao {
         return query.getResultList().stream().findFirst();
     }
 
+    public Optional<User> getUserById(int id){
+        TypedQuery<User> query = sessionFactory.getCurrentSession()
+                .createQuery("from User where id = :id", User.class)
+                .setParameter("id", id);
+        return query.getResultList().stream().findFirst();
+    }
+
+    public Optional<User> getRoleById(int id){
+        TypedQuery<User> query = sessionFactory.getCurrentSession()
+                .createQuery("from Role where id = :id", User.class)
+                .setParameter("id", id);
+        return query.getResultList().stream().findFirst();
+    }
+
+
+
     public List<User> getAllByGender(Gender gender) {
         Query query = sessionFactory.getCurrentSession()
                 .createQuery("from User where gender=:gender");
         query.setParameter("gender", gender);
+
+        return query.getResultList();
+    }
+
+    public List<User> getAllByRole(String role) {
+        RoleEnum roleEnum=getRoleEnum(role);
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("select distinct u  from User u left join fetch u.roles r where r.name=:role");
+        query.setParameter("role", roleEnum);
+
+        return query.getResultList();
+    }
+
+    private RoleEnum getRoleEnum(String role){
+        if(role.equals(RoleEnum.ROLE_USER.name())){
+            return RoleEnum.ROLE_USER;
+        }
+        if(role.equals(RoleEnum.ROLE_ADMIN.name())){
+            return RoleEnum.ROLE_ADMIN;
+        }
+        if(role.equals(RoleEnum.ROLE_COMPANY.name())){
+            return RoleEnum.ROLE_COMPANY;
+        }
+        return null;
+    }
+
+    public List<User> getAllUsersByAge(String age) {
+        LocalDate date=LocalDate.now();
+        LocalDate thirtyYearsBirthday=date.minusYears(30);
+        String sign;
+        if(age.toUpperCase().equals("BEFORE")){
+            sign=">";
+        }else{
+            sign="<";
+        }
+
+        Query query = sessionFactory.getCurrentSession()
+                .createQuery("select distinct u from User u LEFT JOIN FETCH u.roles r where u.date  "+sign+":date");
+        query.setParameter("date", thirtyYearsBirthday);
 
         return query.getResultList();
     }
@@ -90,9 +148,26 @@ public class UserDao {
 
     }
 
-    public void deleteUser(String username){
-        sessionFactory.getCurrentSession()
-                .delete(getUserByName(username).get());
+    public boolean deleteUser(String username){
+        try{
+            sessionFactory.getCurrentSession()
+                    .delete(getUserByName(username).get());
+            return true;
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+       return false;
+    }
+
+    public boolean deleteRole(int id){
+        try{
+            sessionFactory.getCurrentSession()
+                    .delete(getRoleById(id));
+            return true;
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return false;
     }
 
     public boolean updateUser(User user) {
@@ -104,6 +179,7 @@ public class UserDao {
             User userDB = getUserByName(user.getUsername()).get();
             user.setId(userDB.getId());
             user.setRoles(userDB.getRoles());
+
 //            if (user.getRoles() == null || user.getRoles().isEmpty() ){
 //                user.setRoles(roleDao.getDefaultRoles());
 //            }
@@ -115,6 +191,22 @@ public class UserDao {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public boolean createRoles(RoleEnum roleEnum){
+
+        try {
+            Role role = new Role();
+            role.setName(roleEnum);
+            sessionFactory.getCurrentSession()
+                    .persist(role);
+            return true;
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return false;
+
     }
 
 //    public void setDefaultUser(User user){
